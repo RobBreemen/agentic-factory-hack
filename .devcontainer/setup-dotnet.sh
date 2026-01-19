@@ -11,25 +11,31 @@ cd $TEMP_DIR
 echo "📦 Creating temporary .NET project to cache NuGet packages..."
 dotnet new console -n TempSetup --force
 
+# Change into the project directory (dotnet new creates a subdirectory)
+cd TempSetup
+
 echo "📥 Installing required NuGet packages..."
 
-# Azure SDKs
-dotnet add package Microsoft.Azure.Cosmos
-dotnet add package Azure.AI.Inference --version 1.0.0-beta.5 --prerelease
-dotnet add package Azure.AI.Projects --version 1.1.0
-dotnet add package Azure.Identity
+# Azure SDKs (using pinned versions from workshop instructions)
+dotnet add package Microsoft.Azure.Cosmos --version 3.56.0
+dotnet add package Azure.AI.Projects --version 1.2.0-beta.5
+dotnet add package Azure.Identity --version 1.17.1
 
-# Configuration
-dotnet add package Microsoft.Extensions.Configuration
-dotnet add package Microsoft.Extensions.Configuration.EnvironmentVariables
-dotnet add package Microsoft.Extensions.Configuration.Json
+# Microsoft.Extensions.AI
+dotnet add package Microsoft.Extensions.AI --version 10.2.0
+dotnet add package Microsoft.Extensions.AI.Abstractions --version 10.2.0
 
-# Logging
-dotnet add package Microsoft.Extensions.Logging.Console
+# Microsoft Agents
+dotnet add package Microsoft.Agents.AI --version 1.0.0-preview.260108.1
+dotnet add package Microsoft.Agents.AI.AzureAI --version 1.0.0-preview.260108.1
+
+# Dependency Injection & Logging
+dotnet add package Microsoft.Extensions.DependencyInjection --version 10.0.2
+dotnet add package Microsoft.Extensions.Logging --version 10.0.2
+dotnet add package Microsoft.Extensions.Logging.Console --version 10.0.2
 
 # JSON handling
-dotnet add package System.Text.Json
-dotnet add package Newtonsoft.Json
+dotnet add package Newtonsoft.Json --version 13.0.4
 
 echo "🔄 Restoring packages to cache..."
 dotnet restore
